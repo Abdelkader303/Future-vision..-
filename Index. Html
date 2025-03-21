@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دردشة الاجتماع</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body oncontextmenu="return false;" onselectstart="return false;">
+  <!-- تسجيل الدخول -->
+  <div id="login-screen" class="centered">
+    <h2>تسجيل الدخول</h2>
+    <input type="text" id="username" placeholder="اسم المستخدم" oncopy="return false;" oncut="return false;">
+    <input type="text" id="meeting-code" placeholder="كود الاجتماع" oncopy="return false;" oncut="return false;">
+    <button onclick="login()">دخول</button>
+  </div>
+
+  <!-- رئيس الاجتماع -->
+  <div id="admin-panel" class="hidden">
+    <button id="toggle-sidebar-btn" class="toggle-sidebar-btn">≡ لوحة التحكم</button>
+    <div class="sidebar" id="admin-sidebar">
+      <div class="drag-handle"></div> <!-- زر السحب الجديد -->
+      <div class="scrollable-content">
+        <h3>لوحة التحكم</h3>
+        <p>كود المستخدمين الحالي: <span id="current-user-meeting-code">Guest123</span></p>
+        <input type="text" id="new-meeting-code" placeholder="تغيير كود المستخدمين" oncopy="return false;" oncut="return false;">
+        <button onclick="changeUserMeetingCode()">تغيير الكود</button>
+        <button onclick="clearChat()">مسح الرسائل</button>
+        <button onclick="clearAttendees()">مسح الأسماء</button>
+        <button onclick="endMeeting()">إنهاء الاجتماع</button>
+        <h4>قائمة الحاضرين:</h4>
+        <ul id="attendees-list"></ul>
+        <h4>طلبات التحدث:</h4>
+        <ul id="speak-requests"></ul>
+      </div>
+    </div>
+    <div class="chat-container">
+      <div id="meeting-header" class="meeting-header">
+        <p>رئيس الإجتماع هو: <span id="admin-name">غير محدد</span></p>
+      </div>
+      <div id="chat-box" class="chat-box"></div>
+      <input type="text" id="admin-message" placeholder="اكتب رسالة..." oncopy="return false;" oncut="return false;">
+      <button onclick="sendMessage('admin')">إرسال</button>
+    </div>
+  </div>
+
+  <!-- مستخدم عادي -->
+  <div id="user-panel" class="hidden">
+    <div class="chat-container user-chat-container">
+      <div id="meeting-header" class="meeting-header">
+        <p>رئيس الإجتماع هو: <span id="admin-name-user">غير محدد</span></p>
+      </div>
+      <div id="user-chat-box" class="chat-box"></div>
+      <input type="text" id="user-message" placeholder="اكتب رسالة..." disabled oncopy="return false;" oncut="return false;">
+      <button onclick="requestToSpeak()" id="request-to-speak-btn">طلب الإذن للتحدث</button>
+      <button onclick="leaveMeeting()">خروج من الاجتماع</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
